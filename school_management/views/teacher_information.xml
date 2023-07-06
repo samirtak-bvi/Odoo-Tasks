@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="teacher_information_action" model="ir.actions.act_window">
+        <field name="name">Teacher</field>
+        <field name="res_model">teacher.information</field>
+    </record>
+</odoo>

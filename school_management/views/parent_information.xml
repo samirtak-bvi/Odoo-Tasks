@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="parent_information_tree" model="ir.ui.view">
+        <field name="name">parent.information.tree</field>
+        <field name="model">parent.information</field>
+        <field name="arch" type="xml">
+            <tree string="Parents Information">
+                <field name="name" />
+                <field name="email" />
+                <field name="phone_number" />
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="parent_information_form" model="ir.ui.view">
+        <field name="name">parent.information.form</field>
+        <field name="model">parent.information</field>
+        <field name="arch" type="xml">
+            <form string="Parent Information">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" />
+                            <field name="relation" />
+                            <field name="phone_number" />
+                            <field name="email" />
+                            
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page string="Children">
+                            <field name="child_ids" />
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="parent_information_action" model="ir.actions.act_window">
+        <field name="name">Parents</field>
+        <field name="res_model">parent.information</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

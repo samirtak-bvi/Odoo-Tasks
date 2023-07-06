@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <menuitem
+        id="school_menu"
+        name="School Management"
+    />
+    <menuitem
+        id="student_information"
+        name="Students Information"
+        parent="school_menu"
+        action="school.student_information_action" />
+    <menuitem
+        id="parent_information"
+        name="Parents Information"
+        parent="school_menu"
+        action="school.parent_information_action" />
+    <menuitem
+        id="school_information"
+        name="School Information"
+        parent="school_menu"
+        action="school.school_information_action" />
+        
+    <menuitem
+        id="teacher_information"
+        name="Teacher Information"
+        parent="school_menu"
+        action="school.teacher_information_action" />
+        
+    <menuitem
+        id="school_classes"
+        name="School Class"
+        parent="school_menu"
+    />
+    <menuitem
+        id="school_standards"
+        name="Standards"
+        parent="school_classes"
+        action="school.school_standard_action" />
+    <menuitem
+        id="school_divisions"
+        name="Division"
+        parent="school_classes"
+        action="school.school_division_action" />
+    <menuitem
+        id="school_classesname"
+        name="Class"
+        parent="school_classes"
+        action="school.school_classes_action" />
+
+    <menuitem  
+        id="school_higher_secondary"
+        name="Higher Secondary Class"
+        parent="school_menu" />
+
+    <menuitem  
+        id="school_higher_secondary_commerce"
+        name="Commerce"
+        parent="school_higher_secondary" 
+        action="commerce_action" />
+
+    <menuitem  
+        id="school_higher_secondary_science"
+        name="Science"
+        parent="school_higher_secondary" 
+        action="science_action" />    
+    
+    <menuitem  
+        id="school_higher_secondary_arts"
+        name="Arts"
+        parent="school_higher_secondary" 
+        action="arts_action" />
+</odoo>

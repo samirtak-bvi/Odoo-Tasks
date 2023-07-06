@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="school_standard_action" model="ir.actions.act_window">
+        <field name="name">Standard</field>
+        <field name="res_model">school.standards</field>
+    </record>
+
+    <record id="school_division_action" model="ir.actions.act_window">
+        <field name="name">Standard</field>
+        <field name="res_model">school.divisions</field>
+    </record>
+
+    <record id="school_classes_action" model="ir.actions.act_window">
+        <field name="name">Class</field>
+        <field name="res_model">school.classname</field>
+    </record>
+
+    <record id="science_action" model="ir.actions.act_window">
+        <field name="name">Science</field>
+        <field name="res_model">school.classname</field>
+        <field name="domain">[('div.div', '=', 'Science')]</field>
+    </record>
+
+    <record id="commerce_action" model="ir.actions.act_window">
+        <field name="name">Commerce</field>
+        <field name="res_model">school.classname</field>
+        <field name="domain">[('div.div', '=', 'Commerce')]</field>
+    </record>
+
+    <record id="arts_action" model="ir.actions.act_window">
+        <field name="name">Arts</field>
+        <field name="res_model">school.classname</field>
+        <field name="domain">[('div.div', '=', 'Arts')]</field>
+    </record>
+
+</odoo>

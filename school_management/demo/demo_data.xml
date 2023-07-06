@@ -1,0 +1,14 @@
+<odoo>
+    <record id="student_data_1" model="student.information">
+        <field name="name">Samir One</field>
+        <field name="roll_number">001</field>
+    </record>
+    <record id="student_data_2" model="student.information">
+        <field name="name">Samir Two</field>
+        <field name="roll_number">2</field>
+    </record>
+    <record id="student_data_3" model="student.information">
+        <field name="name">Samir Three</field>
+        <field name="roll_number">3</field>
+    </record>
+</odoo>
