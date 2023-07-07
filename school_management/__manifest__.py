@@ -11,7 +11,6 @@
         'views/parent_information.xml',
         'views/student_information.xml',
         'views/school_menus.xml',
-        # 'demo/demo_data.xml'
     ],
     "installable": True,
 }
