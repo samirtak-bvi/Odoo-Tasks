@@ -1,6 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <odoo>
+ <record id="test_form" model="ir.ui.view">
+        <field name="name">test.model.form</field>
+        <field name="model">test.model</field>
+        <field name="arch" type="xml">
+            <form string="Previous School Information">
+                <group>
+                    <group>
+                        <field name="name" />
+                        <field name="standard" />
+                        <field name="division" />
+                        <field name="class_name" />
+                        <field name="dob" />
+                        <field name="country_name" />
+                        <field name="phone_number" />
+                        <field name="enroll_number" />
+                    </group>
+                </group>
+            </form>
+        </field>
+    </record>
+    <record id="test_action" model="ir.actions.act_window">
+        <field name="name">Test</field>
+        <field name="res_model">test.model</field>
+        <field name="target">current</field>
+    </record>
     <menuitem
         id="school_menu"
         name="School Management"
@@ -20,13 +44,11 @@
         name="School Information"
         parent="school_menu"
         action="school_management.school_information_action" />
-        
     <menuitem
         id="teacher_information"
         name="Teacher Information"
         parent="school_menu"
         action="school_management.teacher_information_action" />
-        
     <menuitem
         id="school_classes"
         name="School Class"
@@ -42,32 +64,34 @@
         name="Division"
         parent="school_classes"
         action="school_management.school_division_action" />
-    <menuitem
+    <menuitem 
         id="school_classesname"
         name="Class"
         parent="school_classes"
         action="school_management.school_classes_action" />
-
     <menuitem  
         id="school_higher_secondary"
         name="Higher Secondary Class"
         parent="school_menu" />
-
     <menuitem  
         id="school_higher_secondary_commerce"
         name="Commerce"
         parent="school_higher_secondary" 
         action="commerce_action" />
-
     <menuitem  
         id="school_higher_secondary_science"
         name="Science"
         parent="school_higher_secondary" 
-        action="science_action" />    
-    
+        action="science_action" />
     <menuitem  
         id="school_higher_secondary_arts"
         name="Arts"
         parent="school_higher_secondary" 
         action="arts_action" />
+    <menuitem
+        id="test"
+        name="Test"
+        parent="school_menu"
+        action="test_action"
+        />
 </odoo>

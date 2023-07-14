@@ -11,12 +11,11 @@
             </tree>
         </field>
     </record>
-
-     <record id="school_information_form" model="ir.ui.view">
+    <record id="school_information_form" model="ir.ui.view">
         <field name="name">school.information.form</field>
         <field name="model">school.information</field>
         <field name="arch" type="xml">
-            <form string="Previous School Information">           
+            <form string="Previous School Information">
                 <group>
                     <group>
                         <field name="name" />
@@ -24,7 +23,6 @@
                         <field name="admission_date" />
                         <field name="leaving_date" />
                     </group>
-
                     <group>
                         <field name="student_ids" />
                     </group>
@@ -32,7 +30,6 @@
             </form>
         </field>
     </record>
-
     <record id="school_information_action" model="ir.actions.act_window">
         <field name="name">Previous Schools</field>
         <field name="res_model">school.information</field>
