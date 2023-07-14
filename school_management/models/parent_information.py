@@ -15,6 +15,4 @@ class ParentInformation(models.Model):
     # @api.depends('child')
     # def total_child(self):
     #     self.search_count([('child_ids', '=', )])
-
-
-
+    

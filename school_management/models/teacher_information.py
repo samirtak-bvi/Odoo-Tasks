@@ -34,7 +34,7 @@ class TeacherInformation(models.Model):
         #             self.env['school.classname'].create(new_record_vals)
         #         print(rec.assigned_class)
         #         rec.assigned_class = search_res.id
-            print(rec.search_count([('assigned_class', '=', rec.assigned_class.id)]), 'asiudgsaiudg')
+            # print(rec.search_count([('assigned_class', '=', rec.assigned_class.id)]), 'asiudgsaiudg')
             if rec.search_count([('assigned_class', '=', rec.assigned_class.id)])>1:
                 raise ValidationError("Cannot assign more than 1 teacher to same class.")
         # print(self.std.id, self.div.id)    

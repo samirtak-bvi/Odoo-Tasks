@@ -70,9 +70,23 @@ class ClassName(models.Model):
                 rec.classname = "New"
 
 
-    @api.constrains('classname')
-    def _check_class(self):
-        for rec in self:
-            if self.search_count([('classname', '=', rec.classname)]) > 1:
-                raise ValidationError("Class Exists")            
+    # @api.constrains('classname')
+    # def _check_class(self):
+    #     for rec in self:
+    #         if self.search_count([('classname', '=', rec.classname)]) > 1:
+    #             raise ValidationError("Class Exists")            
+    #         print(self.env['school.standards'].search([('std', '=', rec.std.id)]))
+            
+    #         divisions = self.env['school.standards'].search([('std', '=', rec.std.id)])
+
+    #         rec.std.div = [divisions.id]
+            
+            # rec.div.std = self.env['school.divisions'].search([('div', '=', rec.div.id)]).id
+
+    # @api.constrains('classname')
+    # def _add_class(self):
+    #     for rec in self:
+    #         print(self.env['school.divisions'].search([('std', '=', rec.std.id)]))
+    #         rec.std.div = self.env['school.divisions'].search([('std', '=', rec.std.id)]).id
+    #         rec.div.std = self.env['school.standards'].search([('div', '=', rec.div.id)]).id
 
