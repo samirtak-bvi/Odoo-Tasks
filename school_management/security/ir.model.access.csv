@@ -6,3 +6,4 @@ school_management.access_school_standards,access_school_standards,school_managem
 school_management.access_school_divisions,access_school_divisions,school_management.model_school_divisions,base.group_user,1,1,1,1
 school_management.access_school_classname,access_school_classname,school_management.model_school_classname,base.group_user,1,1,1,1
 school_management.access_teacher_information,access_teacher_information,school_management.model_teacher_information,base.group_user,1,1,1,1
+school_management.test_model,access_test_model,school_management.model_test_model,base.group_user,1,1,1,1
