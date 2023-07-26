@@ -13,7 +13,6 @@
                 <field name="assigned_teacher" />
                 <field name="phone_number" />
                 <field name="is_good" />
-                <button name="test_button" string="Testttt" type="object" class="oe_highlight"/>
             </tree>
         </field>
     </record>
@@ -30,42 +29,40 @@
             </search>
         </field>
     </record>
-    <!-- <record id="action_student_button" model="ir.actions.act_url">
-        <field name="name">Open Google</field>
-        <field name="url">https://www.google.com</field>
-        <field name="target">self</field>
-    </record> -->
+ 
     <record id="action_student" model="ir.actions.server">
         <field name="name">Mark Is Good</field>
         <field name="state">code</field>
         <field name="model_id" ref="model_student_information" />
+        <field name="binding_model_id" ref="model_student_information" />
         <field name="code">
             for rec in records:
                 rec.action_done()
-                if rec.assigned_teacher:
-                    action = {
-                        "type": "ir.actions.act_window",
-                        "view_mode": "tree",
-                        "res_model": "teacher.information",
-                        "target" : "new"
-                    }
         </field>
     </record>
+
+    <record id="action_change_" model="ir.actions.server">
+        <field name="name">Change Field</field>
+        <field name="state">code</field>
+        <field name="model_id" ref="model_student_information" />
+        <field name="binding_model_id" ref="model_student_information" />
+        <field name="code">
+            for rec in records:
+                rec.action_change()
+        </field>
+    </record>
+
     <record id="student_information_form" model="ir.ui.view">
         <field name="name">student.information.name</field>
         <field name="model">student.information</field>
         <field name="arch" type="xml">
             <form string="Student Information">
-                <button name="test_button_2" id="test_button_2" type="object" string="Testing"/>
-                <!-- <button name="%(student_information)daction_student_button" id="test1_button" type="action" string="Testing1" class="oe_highlight"/> -->
                 <sheet>
                     <h1>
                         <group>
                             <field name="enroll_number" />
                         </group>
                     </h1>
-                    <br></br>
-                    <br></br>
                     <group>
                         <group>
                             <field name="is_good" />

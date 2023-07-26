@@ -11,10 +11,12 @@
             </tree>
         </field>
     </record>
+    
     <record id="school_information_form" model="ir.ui.view">
         <field name="name">school.information.form</field>
         <field name="model">school.information</field>
         <field name="arch" type="xml">
+            <button name="cancel_wizard_button" string="Partner" type="object" class="oe_highlight"/>
             <form string="Previous School Information">
                 <group>
                     <group>
@@ -34,5 +36,9 @@
         <field name="name">Previous Schools</field>
         <field name="res_model">school.information</field>
         <field name="view_mode">tree,form</field>
+    </record>
+    <record id="cancel_action" model="ir.actions.act_window">
+        <field name="name">Cancel Wizard</field>
+        <field name="res_model">cancel.wizard</field>
     </record>
 </odoo>

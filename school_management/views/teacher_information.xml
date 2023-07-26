@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <record id="teacher_information_action" model="ir.actions.act_window">
         <field name="name">Teacher</field>
