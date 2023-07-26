@@ -1,0 +1,262 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="estate_property_tree" model="ir.ui.view">
+        <field name="name">estate.property.tree</field>
+        <field name="model">estate.property</field>
+        <field name="arch" type="xml">
+            <tree string="Estate Properties" multi_edit="1">
+                <button name="cancel_property_context" class="btn btn-sm btn-secondary" string="View More" type="object"/>
+                <field name="handle" widget="handle"/>
+                <field name="name"/>
+                <field name="property_info_id" widget="many2many_tags" options="{'color_field': 'color', 'no_create_edit': True}"/>
+                <field name="expected_price" />
+                <field name="date_availabilty" />
+                <field name="check_box_value" widget="progressbar"/>
+            </tree>
+        </field>
+    </record>
+    <record id="estate_property_search" model="ir.ui.view">
+        <field name="name">estate.property.search</field>
+        <field name="model">estate.property</field>
+        <field name="arch" type="xml">
+            <search string="Search Field">
+                <filter string="House Property" name="house_properties" domain="[('property_info_id.name', '=', 'House')]" />
+                <filter string="Archived" name="archived" domain="[('active', '=', False)]" />
+                <group string="Archived">
+                    <filter string="Archived" name="archived" context="{'group_by':'active'}"/>
+                </group>
+                <group string="Availability">
+                    <filter string="Availability" name="available_by_month" context="{'group_by':'month_availabilty'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="quick_create_property_form" model="ir.ui.view">
+        <field name="name">estate.property.form.quick_create</field>
+        <field name="model">estate.property</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="name" />
+                    <field name="expected_price"/>
+                    <field name="date_availabilty"/>
+                </group>
+            </form>
+        </field>
+    </record>
+    <record id="estate_property_kanban" model="ir.ui.view">
+        <field name="name">estate.property.kanban</field>
+        <field name="model">estate.property</field>
+        <field name="arch" type="xml">
+            <kanban on_create="quick_create" quick_create_view="estate.quick_create_property_form" default_group_by="property_type_id" default_order="ratings DESC" class="o_kanban_mobile" sample="1">
+                <progressbar field="ratings" colors="{&quot;5&quot;: &quot;success&quot;, &quot;4&quot;: &quot;warning&quot;, &quot;3&quot;: &quot;primary&quot;, &quot;1&quot;: &quot;secondary&quot;, &quot;0&quot;: &quot;danger&quot;}" sum_field="selling_price" help="This bar allows to filter the opportunities based on scheduled activities."/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click">
+                            <div class="row">
+                                <field name="handle" widget="handle" invisible="1"/>
+                            </div>
+                            <div class="row mb4">
+                                <div class="col-6 o_kanban_record_headings">
+                                    <strong>
+                                        <span>
+                                            <h2>
+                                                <field name="name"/>
+                                            </h2>
+                                            <field name="property_info_id" widget="many2many_tags" options="{'color_field': 'color', 'no_create_edit': True}"/>
+                                            <field name="expected_price"/>
+                                        </span>
+                                    </strong>
+                                </div>
+                            </div>
+                            <fueld name="handle" widget="handle"/>
+                            <div class="row">
+                                <div class="col-12">
+                                    <span>
+                                        <field name="selling_price"/>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <span>
+                                        <field name="price" widget="monetary"/>
+                                    </span>
+                                    <span>
+                                        <field name="currency_id" invisible="1"/>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="oe_kanban_footer">
+                                <div class="o_kanban_record_bottom">
+                                    <div class="oe_kanban_bottom_left">
+                                        <field name="ratings" widget="priority" groups="base.group_user"/>
+                                    </div>
+                                    <div class="oe_kanban_bottom_right">
+                                        <field name="salesperson_id" widget="many2one_avatar_user"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+    <record id="estate_property_graph" model="ir.ui.view">
+        <field name="name">estate.property.name</field>
+        <field name="model">estate.property</field>
+        <field name="arch" type="xml">
+            <graph string="Properties" sample="5" type="pie">
+                <field name="date_availabilty" type="row"/>
+                <field name="selling_price" type="measure"/>
+            </graph>
+        </field>
+    </record>
+    <record id="estate_property_pivot" model="ir.ui.view">
+        <field name="name">estate.property.name</field>
+        <field name="model">estate.property</field>
+        <field name="arch" type="xml">
+            <pivot string="Properties" sample="1">
+                <field name="date_availabilty" type="row"/>
+                <field name="selling_price" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+    <record id="estate_property_form" model="ir.ui.view">
+        <field name="name">estate.property.name</field>
+        <field name="model">estate.property</field>
+        <field name="arch" type="xml">
+            <form string="Property Information">
+                <sheet>
+                    <field name="new_field" />
+                    <h1>
+                        <field name="name" placeholder="Enter Title" />
+                    </h1>
+                    <group>
+                        <field name="ratings" widget="priority"/>
+                    </group>
+                    <field name="property_info_id" widget="many2many_tags" options="{'color_field': 'color', 'no_create_edit': True}"/>
+                    <field name="sale" />
+                    <group>
+                        <group>
+                            <group>
+                                <field name="user" />
+                                <field name="price"/>
+                                <field name="currency_id"/>
+                                <field name="property_type_id" context="{'property': True}"/>
+                                <field string="Test New Field" name="new_id" context="{'field' : True}"/>
+                                <field name="postcode" />
+                                <field name="date_availabilty" />
+                                <field name="month_availabilty" />
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="a" />
+                                <field name="b" />
+                                <field name="c" />
+                                <field name="expected_price"/>
+                                <field name="selling_price"/>
+                                <field name="best_price" />
+                            </group>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Progress">
+                            <group>
+                                <group>
+                                    <field name="check_box_value" widget="percentpie" style="width:120px;height:120px;cursor:pointer;" />
+                                </group>
+                                <group>
+                                    <field name="checkfield" widget="many2many_checkboxes"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Basic Description">
+                            <group>
+                                <group>
+                                    <field name="description" />
+                                </group>
+                            </group>
+                            <separator string="Basic Overview"/>
+                            <group>
+                                <group>
+                                    <field name="bedrooms" />
+                                </group>
+                                <group>
+                                    <field name="living_area" />
+                                </group>
+                                <group>
+                                    <field name="facades" />
+                                </group>
+                                <group>
+                                    <field name="garage" />
+                                </group>
+                                <group>
+                                    <field name="garden" />
+                                </group>
+                                <group>
+                                    <field name="garden_area" />
+                                </group>
+                                <group>
+                                    <field name="garden_orientation" />
+                                </group>
+                                <group>
+                                    <field name="total_area" />
+                                </group>
+                            </group>
+                            <separator string="Activate"/>
+                            <group>
+                                <field name="active" />
+                            </group>
+                        </page>
+                        <page string="Offers">
+                            <tree>
+                                <field name="offer_id" />
+                            </tree>
+                        </page>
+                        <page name="Other Info">
+                            <group>
+                                <group>
+                                    <field name="buyer_id"/>
+                                    <field name="salesperson_id" widget="many2one_avatar_user"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="estate_property_action" model="ir.actions.act_window">
+        <field name="name">Property</field>
+        <field name="res_model">estate.property</field>
+        <field name="view_mode">tree,kanban,graph,pivot,form</field>
+        <field name="context">{'default_selling_price' : 10000.00}</field>
+    </record>
+    <record id="estate_property_kanban_action" model="ir.actions.act_window.view">
+        <field name="sequence" eval="1" />
+        <field name="view_mode">kanban</field>
+        <field name="view_id" ref="estate_property_kanban"></field>
+        <field name="act_window_id" ref="estate_property_action"/>
+    </record>
+    <record id="estate_property_graph_action" model="ir.actions.act_window.view">
+        <field name="sequence" eval="2" />
+        <field name="view_mode">graph</field>
+        <field name="view_id" ref="estate_property_graph"></field>
+        <field name="act_window_id" ref="estate_property_action"/>
+    </record>
+    <record id="estate_property_tree_action" model="ir.actions.act_window.view">
+        <field name="sequence" eval="3" />
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="estate_property_tree"></field>
+        <field name="act_window_id" ref="estate_property_action"/>
+    </record>
+    <record id="estate_property_pivot_action" model="ir.actions.act_window.view">
+        <field name="sequence" eval="4" />
+        <field name="view_mode">pivot</field>
+        <field name="view_id" ref="estate_property_pivot"></field>
+        <field name="act_window_id" ref="estate_property_action"/>
+    </record>
+</odoo>

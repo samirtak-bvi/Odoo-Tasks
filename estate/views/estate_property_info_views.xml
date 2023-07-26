@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="estate_property_info_form" model="ir.ui.view">
+        <field name="name">estate.property.info.name</field>
+        <field name="model">estate.property.info</field>
+        <field name="arch" type="xml">
+            <form string="Property Info">
+                <field name="name" />
+                <field name="color" widget="color_picker"/>
+            </form>
+        </field>
+    </record>
+    <record id="estate_property_info_action" model="ir.actions.act_window">
+        <field name="name">Property Info</field>
+        <field name="res_model">estate.property.info</field>
+    </record>
+
+    <record id="estate_property_context_action" model="ir.actions.act_window">
+        <field name="name">Test Property Context</field>
+        <field name="res_model">properties.context</field>
+        <field name="view_mode">form</field>
+    </record>
+
+</odoo>

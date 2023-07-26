@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+estate.access_estate_property,access_estate_property,estate.model_estate_property,base.group_user,1,1,1,1
+estate.access_estate_property_type,access_estate_property_type,estate.model_estate_property_type,base.group_user,1,1,1,1
+estate.access_estate_property_info,access_estate_property_info,estate.model_estate_property_info,base.group_user,1,1,1,1
+estate.access_estate_property_offer,access_estate_property_offer,estate.model_estate_property_offer,base.group_user,1,1,1,1
+estate.access_estate_property_cancel,access_estate_property_cancel,estate.model_estate_property_cancel,base.group_user,1,1,1,1
+estate.access_progress_check,access_progress_check,estate.model_progress_check,base.group_user,1,1,1,1
+estate.access_properties_context,access_properties_context,estate.model_properties_context,base.group_user,1,1,1,1

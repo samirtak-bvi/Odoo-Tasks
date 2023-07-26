@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem
+        id="estate_menu_root"
+        name="Estate"/>
+    <menuitem
+        id="menu_estate" 
+        name="Estate Dropdown"
+        parent="estate_menu_root"/>
+    <menuitem
+        id="menu_estate_property" 
+        name="Estate Properties"
+        parent="menu_estate"
+        action="estate.estate_property_action"/>
+    <menuitem
+        id="menu_estate_property_type" 
+        name="Estate Properties Type"
+        parent="menu_estate"
+        action="estate.estate_property_type_action"/>
+    <menuitem
+        id="menu_estate_property_info" 
+        name="Estate Properties Info"
+        parent="menu_estate"
+        action="estate.estate_property_info_action"/>
+    <menuitem
+        id="menu_estate_property_offer" 
+        name="Estate Properties Offers"
+        parent="menu_estate"
+        action="estate.estate_property_offer_action"/>
+    <menuitem
+        id="menu_estate_cancel_property"
+        name="Cancel Estate Property"
+        parent="estate_menu_root"
+        action="estate.estate_property_cancel_action"/>
+    <menuitem
+        id="menu_progress_check_property"
+        name="Extra Items"
+        parent="estate_menu_root"
+        action="estate.progress_check_action"/>
+    <menuitem
+        id="menu_properties_context"
+        name="Property Context"
+        parent="estate_menu_root"
+        action="estate.estate_property_context_action"/>
+            
+</odoo>
