@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.ui.view" id="cancel_detail_form_custom">
+        <field name="name">cancel.detail.wizard.form.custom</field>
+        <field name="model">web</field>
+        <field name="inherit_id" ref="list_view"/>
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//div[@class='o_cp_left']" position="inside">
+                    <button type="button" string="Cancel Application" class="oe_highlight"/>
+                </xpath>
+            </data>
+        </field>
+    </record>
+</odoo>
+<!-- 
+<odoo>
+    <data>
+        <template id="view_extend" inherit_id="web.list_view">
+            <xpath expr="//div[@class='o_list_buttons']" position="after">
+                <button type="button" class="btn btn-sm btn-default o_button_object">Hello</button>
+            </xpath>
+        </template>
+    </data>
+</odoo> -->
