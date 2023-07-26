@@ -11,19 +11,19 @@ class StudentInformation(models.Model):
     _description = 'It will contain the basic information field of the student'
     _inherit = "mail.thread"
 
-    name = fields.Char(required=True)
+    name = fields.Char()
     standard = fields.Many2one("school.standards")
     division = fields.Many2one("school.divisions")
     roll_number = fields.Integer()
-    enroll_number = fields.Char(readonly=True)
+    enroll_number = fields.Char(readonly=True, store=True)
     country_name = fields.Many2one("res.country")
     address = fields.Text(compute="_get_address")
     phone_number = fields.Char(copy=False, tracking=True, default="")
-    dob = fields.Date(required=True)
+    dob = fields.Date()
     age = fields.Integer(store=True, compute="_calc_age")
     parent_ids = fields.Many2many("parent.information")
     school_ids = fields.Many2many("school.information")
-    class_name = fields.Many2one("school.classname", required=True)
+    class_name = fields.Many2one("school.classname")
     assigned_teacher = fields.Many2one("teacher.information")
     address_line_1 = fields.Char()
     address_line_2 = fields.Char()
@@ -33,16 +33,13 @@ class StudentInformation(models.Model):
     birth_month = fields.Char()
     is_good = fields.Boolean(string="Check Box", default=True)
     # reference_no = fields.Char(string="Enrollment Number")
-
-    @api.model
-    def create(self, vals_list):
-        pass
     
 
     def name_get(self):
         res = []
         for rec in self:
-            res.append((rec.id , rec.name.upper()))
+            if rec.name:
+                res.append((rec.id , rec.name.upper()))
         return res
 
 
@@ -118,7 +115,7 @@ class StudentInformation(models.Model):
                         raise ValidationError("Country Code has been altered!")
                     raise ValidationError("Number is wrong!")
 
-            except phonenumbers.phonenumberutil.NumberParseException:
+            except (phonenumbers.phonenumberutil.NumberParseException, TypeError):
                 raise ValidationError("Enter Phone Number!")
 
     @api.constrains('phone_number')
@@ -152,20 +149,13 @@ class StudentInformation(models.Model):
                 #     if not(age-6<=int(rec.class_name.std.std) and age-4>=int(rec.class_name.std.std)):
                 #         raise ValidationError("Check Age! It does not match with the Standard")
 
-    @api.model_create_multi
+    @api.model
     def create(self, vals):
-        # record = super(StudentInformation, self).create(vals_list=vals)
-
-        # for rec in record:
-        #     print(rec.id)
-        #     rec.enroll_number = "ENR00" + str(rec.id)
         
-        for val in vals:
-            val['enroll_number'] = self.env['ir.sequence'].next_by_code('school.enrollment.sequence')
+        vals['enroll_number'] = self.env['ir.sequence'].next_by_code('student.enrollment.sequence')
+        print(vals)
         res = super(StudentInformation, self).create(vals)
         return res
-
-        # return record
 
     def test_button_2(self):
         return {
@@ -192,6 +182,13 @@ class StudentInformation(models.Model):
         # for rec in self:
         #     print(rec._fields)    
 
+    def action_change(self):
+        for rec in self:
+            print(rec)
+            results = self.env['school.information'].search([])
+            for result in results:
+                result.enroll_number = rec.enroll_number
+
     def write(self, vals):
         print('iasdgdsuiag')
         return super(StudentInformation,self.with_context(mail_notify_force_send=True)).write(vals)
@@ -215,22 +212,16 @@ class StudentInformation(models.Model):
         args = args or []
         recs = self.browse()
         if name:
-            recs = self.search((args + [('name', operator, name), ('enroll_number', operator, name)]),
+            recs = self.search((args + ['|', ('name', operator, name), ('enroll_number', operator, name)]),
                                limit=limit)
         if not recs:
             recs = self.search([('name', operator, name)] + args, limit=limit)
         return recs.name_get()
     
-    # @api.model
-    # def create(self, vals):
-    #     # vals
-    #     return super(StudentInformation, self.with_context(name='qwetrt')).create(vals)
-
-    # class NewClass(AccountMoveLine):
-    
         
-class Test(models.Model):
-    _name = 'test.model'
-    _description = 'siaudbgsuiadh'
-    _inherit = 'student.information'
+class StudentModel(models.Model):
+    _name="student.model"
+    _description="Student Model"
+    _inherit = ["student.information"]
 
+    new_field = fields.Char()

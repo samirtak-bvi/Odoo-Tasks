@@ -5,6 +5,7 @@ from odoo.exceptions import ValidationError
 
 class SchoolInformation(models.Model):
     _name = 'school.information'
+    # _inherit = "sale.order"
     _description = 'It will contain the basic information field of the Previous School.'
 
     name=fields.Char(required=True)
@@ -20,3 +21,16 @@ class SchoolInformation(models.Model):
                 raise ValidationError("Leaving Date Cannot be before Admission date!")
 
 
+    def cancel_wizard_button(self):
+        print(self._context)
+        res = self.with_context({'enroll_number':'qwerty'})
+        print(self._context)
+        return {
+            "type" : "ir.actions.act_window",
+            "view_mode" : "form",
+            "res_model" : "cancel.wizard",
+            "target" : "new",
+        }
+    
+    def testing(self):
+        return True
