@@ -11,3 +11,12 @@ This Repository contains the task provided during the Odoo Training.
     * Previous School's Joining/Leaving dates.
     * Parent's Information.
   * All the fields are relational, to avoid any human error.
+
+### 2) [Estate Property](https://github.com/samirtak-bvi/Odoo-Tasks/tree/main/estate)
+  * This module contains the Estate Property system.
+  * Seller can add the Property, with the expected price.
+  * While Buyer can make a bid on the same.
+  * Mainly this module is for test purpose.
+  * Used all of the ORM Methods.
+  * Understood Context and types of views.
+  * Customized the Kanban view, with the help of CRM module.
