@@ -36,7 +36,7 @@ class EstateProperty(models.Model):
     buyer_id = fields.Many2one("res.users", copy=False)
     salesperson_id = fields.Many2one(
         "res.users", default=lambda self: self.env.user)
-    property_info_id = fields.Many2many("estate.property.info")
+    property_info_id = fields.Many2many("estate.property.info", context={'from_python': True})
     offer_id = fields.One2many(
         "estate.property.offer", "property_id", string="Property Offer")
     living_area = fields.Integer("Living Area (sqm.)", default=1)
@@ -61,6 +61,42 @@ class EstateProperty(models.Model):
         '0', 'None'), ('1', 'Very Low'), ('2', 'Low'), ('3', 'Medium'), ('4', 'High'), ('5', 'Very High')])
     checkfield = fields.Many2many('progress.check', required=False)
     property_context = fields.Many2one('properties.context', 'properties')
+    duplicate_buyer_count = fields.Integer(compute='_calc_duplicate_buyer')
+
+    def _calc_duplicate_buyer(self):
+        for rec in self:
+            if rec.buyer_id:
+                rec.duplicate_buyer_count = self.search_count([('buyer_id', '=', rec.buyer_id.id)]) 
+            else:
+                rec.duplicate_buyer_count = 0
+
+
+    def action_show_potential_duplicates(self):
+        return {
+            'name' : self.buyer_id.name,
+            'type' : 'ir.actions.act_window',
+            'view_mode' : 'tree',
+            'res_model': 'estate.property',
+            'domain' : [('buyer_id', '=', self.buyer_id.id)]
+        }
+
+    @api.model
+    def default_get(self, fields):
+        print(self._context, 'qwertyuiosdfgh')
+        return super(EstateProperty, self).default_get(fields)
+
+    @api.onchange('property_info_id')
+    def on_change_info(self):
+        print(self._context)
+    def action_change(self):
+        print(self.env['estate.property'].search([]))
+        print(self.with_context(mail_notify_force_send=True))
+        print(self._context)
+
+        self._context.update({'mail_notify_force_send' : True})
+        print(type(self._context))
+        print(self._context)
+        
 
     def cancel_property_context(self):
         print(self._context)
@@ -72,11 +108,12 @@ class EstateProperty(models.Model):
             "context": {"default_property_id": self.id}
         }
 
-
-    # @api.model
-    # def name_search(self):
-    #     print(self._context)
-    #     return super(EstateProperty, self).name_get()
+    @api.model
+    def name_search(self, name='', args=None, operator='=', limit=100):
+        domain = args
+        if self._context.get('get_properties'):
+            domain+=[('salesperson_id', '=', self._context.get('uid'))]
+        return super(EstateProperty, self).search(domain, limit=limit).name_get()
 
     @api.depends('checkfield')
     def _get_ratings(self):
@@ -146,14 +183,14 @@ class EstateProperty(models.Model):
 
         # if 'garden' in values and values['garden'] == True:
         #     raise ValidationError("No Garden!")
-        if 'property_type_id' in values:
-            property_types = self.property_type_id.browse(
-                values['property_type_id'])
-            print(property_types)
-            for property_type in property_types:
-                if property_type.name == 'House':
-                    self.postcode = '38000'
-
+        # if 'property_type_id' in values:
+        #     property_types = self.property_type_id.browse(
+        #         values['property_type_id'])
+        #     print(property_types)
+        #     for property_type in property_types:
+        #         if property_type.name == 'House':
+        #             self.postcode = '38000'
+        print(values, 'Write Values()')
         response = super(EstateProperty, self).write(values)
 
         # rec = self.env['progress.check'].with_context(test="Has TV").create({'name': 'Has Nothing'})
@@ -205,11 +242,10 @@ class PropertyCancel(models.TransientModel):
     _name = "estate.property.cancel"
     _description = "A Cancel Wizard Model"
 
-    property_id = fields.Many2one("estate.property")
+    property_id = fields.Many2one("estate.property", string="Browse Property")
 
     def delete_property(self):
         for rec in self:
-
             if self._context.get('active_id'):
                 pass
 
@@ -235,7 +271,7 @@ class PropertyCancel(models.TransientModel):
                     'type': 'ir.actions.client',
                     'tag': 'display_notification',
                     'params': {
-                        'type': 'danger',
+                        'type': 'success',
                         'message': ("You can not delete the property."),
                         'next': {'type': 'ir.actions.act_window_close'},
                     }
