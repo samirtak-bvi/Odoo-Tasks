@@ -16,7 +16,7 @@ class EstatePropertyType(models.Model):
            for rec in self:
                arr.append((rec.id, rec.new_field))
 
-        if self._context.get('property'):
+        else:
             for rec in self:
                 arr.append((rec.id, rec.name))
 
