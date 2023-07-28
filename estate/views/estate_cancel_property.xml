@@ -4,7 +4,9 @@
         <field name="model">estate.property.cancel</field>
         <field name="arch" type="xml">
             <form string="Cancel Property">
-                <field name="property_id" />
+            <group>
+                <field name="property_id" context="{'get_properties': True}"/>
+            </group>    
                 <footer>
                     <button name="delete_property" confirm="Are you sure, you want to delete the record?" type="object" string="Delete Record" class="btn btn-secondary"/>
                     <button string="Cancel" class="btn btn-primary" special="cancel"/>
