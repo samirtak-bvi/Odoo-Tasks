@@ -59,9 +59,15 @@ class EstateProperty(models.Model):
         store=True, compute='_get_ratings', string="Progress")
     ratings = fields.Selection(readonly=True, selection=[(
         '0', 'None'), ('1', 'Very Low'), ('2', 'Low'), ('3', 'Medium'), ('4', 'High'), ('5', 'Very High')])
-    checkfield = fields.Many2many('progress.check', required=False)
+    checkfield = fields.Many2many('progress.check', context={'text': True}, required=False)
     property_context = fields.Many2one('properties.context', 'properties')
     duplicate_buyer_count = fields.Integer(compute='_calc_duplicate_buyer')
+    manager_name = fields.Many2one('res.partner',string='Manager Name')
+
+
+    @api.onchange('checkfield')
+    def _get_check(self):
+        print(self._context)
 
     def _calc_duplicate_buyer(self):
         for rec in self:
@@ -190,6 +196,12 @@ class EstateProperty(models.Model):
         #     for property_type in property_types:
         #         if property_type.name == 'House':
         #             self.postcode = '38000'
+        ids = []
+        for id in self:
+            ids.append(id.id)
+        print(ids)
+        print(self.browse([107,115]), 'sadghiug')
+    
         print(values, 'Write Values()')
         response = super(EstateProperty, self).write(values)
 
@@ -225,7 +237,7 @@ class EstateProperty(models.Model):
 
     #     return records
 
-    # def read_group(self, domain, fields, groupby, offset=0, limit=None, orderby=False, lazy=True):
+    # def read_group(self, domain, fields, groupby," options="{'color_field': 'color', 'no_create_edit': T offset=0, limit=None, orderby=False, lazy=True):
     #     # domain = [('bedrooms', '=', 2)]
     #     fields = ['date_availabilty']
     #     groupby = ['day']
@@ -278,7 +290,7 @@ class PropertyCancel(models.TransientModel):
                 }
 
 
-class ProgressCheck(models.Model):
+class ProgressCheck(models.TransientModel):
     _name = 'progress.check'
     _description = 'A Progress Checkbox'
 
@@ -305,5 +317,40 @@ class PropertiesContext(models.Model):
     _name = 'properties.context'
     _description = 'This is a test for context in properties.'
 
-    name = fields.Char()
+    name = fields.Char(multi_company=True)
     properties = fields.One2many('estate.property', 'property_context')
+
+
+class ResConfigSettings(models.TransientModel):
+    _inherit = ['res.config.settings']
+
+    manager_name = fields.Many2one('res.partner',string='Manager Name', config_parameter='estate.manager_name')
+    abcd = fields.Boolean(string="Check")
+    defg = fields.Boolean(string="Check")
+    qwer = fields.Boolean(string="Check")
+    asdf = fields.Boolean(string="Check")
+    zxcv = fields.Boolean(string="Check")
+    wert = fields.Boolean(string="Check")
+    sdfg = fields.Boolean(string="Check")
+
+    # def write(self, vals):
+    #     print('abcd')
+    #     res = super(ResConfigSettings, self).write(vals)
+    #     return res
+    
+    @api.model
+    def get_values(self):
+        res = super(ResConfigSettings, self).get_values()
+        print(res, 'asigsadihsduiauhi')
+        # print(self.env.ref('estate.model_estate_property'))
+        # res.update(
+        #     manager_name = self.env.ref('estate.model_estate_property').manager_name,
+        # )
+        return res
+    
+
+# class PriceListWizard(models.TransientModel):
+#     _name="price.list.wizard"
+#     _description="Price List Wizard Description."
+
+    # report_type = fields.Selection([()])
