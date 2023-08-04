@@ -70,7 +70,7 @@
                                     </strong>
                                 </div>
                             </div>
-                            <fueld name="handle" widget="handle"/>
+                            <!-- <field name="handle" widget="handle"/> -->
                             <div class="row">
                                 <div class="col-12">
                                     <span>
@@ -94,7 +94,7 @@
                                         <field name="ratings" widget="priority" groups="base.group_user"/>
                                     </div>
                                     <div class="oe_kanban_bottom_right">
-                                        <field name="salesperson_id" widget="many2one_avatar_user"/>
+                                        <field name="buyer_id" widget="many2one_avatar_user"/>
                                     </div>
                                 </div>
                             </div>
@@ -108,7 +108,7 @@
         <field name="name">estate.property.name</field>
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
-            <graph string="Properties" sample="5" type="pie">
+            <graph string="Properties" sample="5" type="line">
                 <field name="date_availabilty" type="row"/>
                 <field name="selling_price" type="measure"/>
             </graph>
@@ -151,6 +151,7 @@
                     <group>
                         <group>
                             <group>
+                                <field name="manager_name" />
                                 <field name="user" />
                                 <field name="price"/>
                                 <field name="currency_id"/>
