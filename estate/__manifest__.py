@@ -3,6 +3,9 @@
     "version": "1.1.2",  # Version
     "application": True,  # This line says the module is an App, and not a module
     "depends": ["base", "sale", "mail"],  # dependencies
+    "summary": "A basic Property Estate Module",
+    "author": "Samir Tak",
+    "support": "BVI",
     "data": [
         'security/ir.model.access.csv',
         'views/estate_cancel_property.xml',
@@ -11,7 +14,12 @@
         'views/estate_property_type_views.xml',
         'views/estate_property_views.xml',
         'views/estate_menus.xml',
+        'views/estate_settings.xml',
+        'report/estate_property_templates.xml',
+        'report/estate_property_reports.xml',
+        'data/estate_mail_template.xml',
+        'data/cron.xml',
     ],
     "installable": True,
-    "license" : "LGPL-3",
+    "license": "LGPL-3",
 }
