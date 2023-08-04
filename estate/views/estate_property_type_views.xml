@@ -1,12 +1,57 @@
 <?xml version="1.0"?>
 <odoo>
-    <record id="estate_property_type_action" model="ir.actions.act_window">
-        <field name="name">Property Type</field>
-        <field name="res_model">estate.property.type</field>
-    </record>
-
     <record id="progress_check_action" model="ir.actions.act_window">
         <field name="name">Progress Name</field>
         <field name="res_model">progress.check</field>
+    </record>
+    <record id="estate_property_type_form" model="ir.ui.view">
+        <field name="name">estate.property.type.name</field>
+        <field name="model">estate.property.type</field>
+        <field name="arch" type="xml">
+            <form string="Property Type">
+                <sheet>
+                    <group>
+                        <field name="name" />
+                        <field name="new_field" />
+                        <group>
+                            <group>
+                                <field name="property_type_img" widget="image" />
+                            </group>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Property">
+                            <field name="property_name_ids">
+                                <kanban string="Property">
+                                    <t t-name="kanban-box">
+                                        <div t-attf-class="oe_kanban_global_click">
+                                            <div class="row">
+                                                <field name="name" />
+                                                <field name="ratings" widget="priority" />
+                                            </div>
+                                            <div class="row">
+                                                <field name="property_info_id" widget="many2many_tags" options="{'color_field': 'color', 'no_create_edit': True}"/>
+                                            </div>
+                                            <div class="row">
+                                            </div>
+                                        </div>
+                                    </t>
+                                </kanban>
+                                <form string="Property">
+                                    <group>
+                                        <field name="name"/>
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="estate_property_type_action" model="ir.actions.act_window">
+        <field name="name">Property Type</field>
+        <field name="res_model">estate.property.type</field>
+        <field name="view_mode">tree,form</field>
     </record>
 </odoo>
