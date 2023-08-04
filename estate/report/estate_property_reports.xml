@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="report_property" model="ir.actions.report">
+        <field name="name">Estate Property </field>
+        <field name="model">estate.property</field>
+        <field name="report_name">estate.report_property_offers</field>
+        <field name="binding_model_id" ref="model_estate_property"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <record id="report_property_info" model="ir.actions.report">
+        <field name="name">Estate Property Info</field>
+        <field name="model">estate.property.info</field>
+        <field name="report_name">estate.report_type_info</field>
+        <field name="binding_model_id" ref="model_estate_property_info"/>
+        <field name="binding_type">report</field>
+    </record>
+    
+    <record id="report_property_offer" model="ir.actions.report">
+        <field name="name">Property Offer</field>
+        <field name="model">estate.property.offer</field>
+        <field name="report_name">estate.report_property_offers_status</field>
+        <field name="binding_model_id" ref="model_estate_property_offer"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

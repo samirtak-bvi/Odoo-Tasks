@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_property_offers">
+        <t t-foreach="docs" t-as="property">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <div class="property">
+                            <h2>
+                                <span t-field="property.name" />
+                            </h2>
+                            <div>
+                                <strong>Expected Price</strong>
+                                <span t-field="property.expected_price" />
+                            </div>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Price</th>
+                                        <th>Partner</th>
+                                        <th>Name</th>
+                                        <th>State</th>
+                                        <th>Image</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-set="offers" t-value="property.mapped('offer_id')"/>
+                                    <tr t-foreach="offers" t-as="offer">
+                                        <td>
+                                            <span t-field="offer.price"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="offer.partner_id"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="offer.salesperson_id"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="offer.status"/>
+                                        </td>
+                                        <td>
+                                            <img style="height:50px; width:50px;" t-att-src="'data:image/png;base64,%s' % (offer.salesperson_img).decode('utf-8')"/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <t t-set="offers" t-value="property.mapped('offer_id')"/>
+                            <div t-foreach="offers" t-as="offer">
+                                <t t-if="offer.status == 'accepted'">
+                                    <h2>
+                                        <span>Congratulations!</span>
+                                    </h2>
+                                    <img style="height:100px; width:100px;" t-att-src="'data:image/png;base64,%s' %(offer.salesperson_img).decode('utf-8')"/>
+                                    <span t-field="offer.salesperson_id" />
+                                </t>
+                                <t t-else="" />
+                            </div>
+
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+    <!-- <template id="report_type_info" inherit_id="estate.report_property_offers">
+        <xpath expr="//div[@class='property']" position="after">
+            <t t-foreach="docs" t-as="info">
+                <span t-field="info.name"/>
+            </t>
+        </xpath>
+    </template> -->
+    <template id="report_property_offers_status">
+        <t t-foreach="docs" t-as="offer">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>
+                            <span t-field="offer.property_id.name" />
+                        </h2>
+                        <t t-set="property" t-value="offer.mapped('property_id')"/>
+                        <div t-foreach="properties" t-as="property">
+                            <h2>
+                                <span t-field="property.name" />
+                            </h2>
+                            <span t-field="property.ratings" />
+                            <span>Selling Price
+                                <span t-field="property.selling_price" />
+                                    </span>
+                            <span>Bought in
+                                <span t-field="offer.price" />
+                                    </span>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>
