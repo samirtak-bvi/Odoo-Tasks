@@ -42,7 +42,7 @@ class StudentInformation(models.Model):
                 res.append((rec.id , rec.name.upper()))
         return res
 
-
+    
 
     @api.depends('address_line_1', 'address_line_2', 'zip_code', 'state', 'country_name')
     def _get_address(self):
@@ -225,3 +225,5 @@ class StudentModel(models.Model):
     _inherit = ["student.information"]
 
     new_field = fields.Char()
+
+    
