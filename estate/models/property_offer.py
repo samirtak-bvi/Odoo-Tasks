@@ -1,16 +1,19 @@
 from odoo import fields, models, api
 
+
 class PropertyOffer(models.Model):
     _name = "estate.property.offer"
     _description = "This will contain the offers of the Property!"
     _rec_name = "partner_id"
-    
+
     price = fields.Float()
-    status = fields.Selection([('accepted', 'Accepted'), ('refused', 'Refused')])
+    status = fields.Selection(
+        [('accepted', 'Accepted'), ('refused', 'Refused')])
     partner_id = fields.Many2one("res.partner", required="True")
     property_id = fields.Many2one("estate.property")
     salesperson_id = fields.Many2one("res.users", string="Partner")
-    salesperson_img=fields.Image(compute="_get_image", store=True, string="Image")
+    salesperson_img = fields.Image(
+        compute="_get_image", store=True, string="Image")
 
     @api.depends('salesperson_id')
     def _get_image(self):
@@ -21,19 +24,32 @@ class PropertyOffer(models.Model):
     #     rec = super(PropertyOffer, self).create(vals_list)
     #     if rec.property_id.salesperson_id.id:
     #         rec.salesperson_id = rec.property_id.salesperson_id.id
-        
+
     #     return rec
 
     @api.model
     def _send_mail_cron(self):
         print('saddfsadfsasa')
-        self.create({'partner_id':14})
+        self.create({'partner_id': 14})
 
-        recs = self.env['estate.property.offer'].search([('status', '=', 'accepted')])
+        recs = self.env['estate.property.offer'].search(
+            [('status', '=', 'accepted')])
         for rec in recs:
             template_id = rec.env.ref('estate.estate_mail_template').id
-            rec.env['mail.template'].browse(template_id).send_mail(self.id, force_send=True)            
-    
+            rec.env['mail.template'].browse(
+                template_id).send_mail(self.id, force_send=True)
+
     def action_send_info(self):
         template_id = self.env.ref('estate.estate_mail_template').id
-        self.env['mail.template'].browse(template_id).send_mail(self.id, force_send=True)
+        self.env['mail.template'].browse(
+            template_id).send_mail(self.id, force_send=True)
+        return {
+            'type': 'ir.actions.client',
+            'tag': 'display_notification',
+            'params': {
+                'type': 'success',
+                'message': (f"Mail Sent Successfully to {self.partner_id.name}."),
+                'next': {'type': 'ir.actions.act_window_close',
+                            },
+            }
+        }
