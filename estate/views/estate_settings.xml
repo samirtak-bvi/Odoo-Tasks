@@ -28,6 +28,15 @@
                                 </div>
                                 <div class="o_setting_right_pane">
                                     <span>Is True? </span>
+                                    <div class="text-muted">This is just a test field for the Boolean Value</div>
+                                </div>
+                            </div>
+                            <div class="o_setting_box o_searchable_setting col-12 col-lg-6" attrs="{'invisible': [('abcd','=',False)]}">
+                                <div class="o_setting_left_pane" >
+                                </div>
+                                <div class="o_setting_right_pane" >
+                                    <label for="product_weight_in_lbs" />
+                                    <field name="product_weight_in_lbs"/>
                                 </div>
                             </div>
                             <div class="o_setting_box o_searchable_setting col-12 col-lg-6">

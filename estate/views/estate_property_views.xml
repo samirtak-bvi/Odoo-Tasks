@@ -129,6 +129,7 @@
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
             <form string="Property Information">
+                <button name="print_xlsx" type="object" string="Excel Report" class="oe_stat_button btn btn-primary" />
                 <sheet>
                     <div class="oe_button_box">
                         <button name="action_show_potential_duplicates" type="object" class="oe_stat_button" icon="fa-star" attrs="{'invisible': [('duplicate_buyer_count', '&lt;', 1)]}">
@@ -144,6 +145,7 @@
                         <field name="name" placeholder="Enter Title" />
                     </h1>
                     <group>
+                        <field name="estate" />
                         <field name="ratings" widget="priority"/>
                     </group>
                     <field name="property_info_id" context="{'from_view': True}" widget="many2many_tags" options="{'color_field': 'color', 'no_create_edit': True}"/>
