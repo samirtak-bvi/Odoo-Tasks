@@ -3,7 +3,13 @@ from datetime import datetime
 from dateutil.relativedelta import relativedelta
 import pytz
 from odoo.exceptions import ValidationError
-
+import json
+from odoo.tools import date_utils
+import xlsxwriter
+import io
+from odoo import http
+from odoo.http import request
+import base64
 
 class EstateProperty(models.Model):
     _name = "estate.property"
@@ -36,7 +42,8 @@ class EstateProperty(models.Model):
     buyer_id = fields.Many2one("res.users", copy=False)
     salesperson_id = fields.Many2one(
         "res.users", default=lambda self: self.env.user)
-    property_info_id = fields.Many2many("estate.property.info", context={'from_python': True})
+    property_info_id = fields.Many2many(
+        "estate.property.info", context={'from_python': True})
     offer_id = fields.One2many(
         "estate.property.offer", "property_id", string="Property Offer")
     living_area = fields.Integer("Living Area (sqm.)", default=1)
@@ -59,31 +66,53 @@ class EstateProperty(models.Model):
         store=True, compute='_get_ratings', string="Progress")
     ratings = fields.Selection(readonly=True, selection=[(
         '0', 'None'), ('1', 'Very Low'), ('2', 'Low'), ('3', 'Medium'), ('4', 'High'), ('5', 'Very High')])
-    checkfield = fields.Many2many('progress.check', context={'text': True}, required=False)
+    checkfield = fields.Many2many('progress.check', context={
+                                  'text': True}, required=False)
     property_context = fields.Many2one('properties.context', 'properties')
     duplicate_buyer_count = fields.Integer(compute='_calc_duplicate_buyer')
-    manager_name = fields.Many2one('res.partner',string='Manager Name')
-
+    manager_name = fields.Many2one(
+        'res.partner', string='Manager Name', config_parameter='estate.manager_name')
+    estate = fields.Char(string="qwerty")
 
     @api.onchange('checkfield')
     def _get_check(self):
         print(self._context)
 
+    def print_xlsx(self):
+        for rec in self:
+            data = {
+                'report_name' : rec.name,
+                'model': rec.id,
+                'date': rec.date_availabilty.strftime(f"%m/%d/%Y"),
+                'property': rec.name,
+                'salesperson': rec.salesperson_id.id
+            }
+            
+            return {
+                'type': 'ir.actions.report',
+                'data': {
+                    'model': 'estate.property',
+                    'options': json.dumps(data, default=date_utils.json_default),
+                    'output_format': 'xlsx',
+                },
+                'report_type': 'xlsx',
+            }
+
     def _calc_duplicate_buyer(self):
         for rec in self:
             if rec.buyer_id:
-                rec.duplicate_buyer_count = self.search_count([('buyer_id', '=', rec.buyer_id.id)]) 
+                rec.duplicate_buyer_count = self.search_count(
+                    [('buyer_id', '=', rec.buyer_id.id)])
             else:
                 rec.duplicate_buyer_count = 0
 
-
     def action_show_potential_duplicates(self):
         return {
-            'name' : self.buyer_id.name,
-            'type' : 'ir.actions.act_window',
-            'view_mode' : 'tree',
+            'name': self.buyer_id.name,
+            'type': 'ir.actions.act_window',
+            'view_mode': 'tree',
             'res_model': 'estate.property',
-            'domain' : [('buyer_id', '=', self.buyer_id.id)]
+            'domain': [('buyer_id', '=', self.buyer_id.id)]
         }
 
     @api.model
@@ -94,15 +123,18 @@ class EstateProperty(models.Model):
     @api.onchange('property_info_id')
     def on_change_info(self):
         print(self._context)
+        for rec in self:
+            rec.offer_id = [[3, 105, 0]]
+            print(rec.offer_id)
+
     def action_change(self):
         print(self.env['estate.property'].search([]))
         print(self.with_context(mail_notify_force_send=True))
         print(self._context)
 
-        self._context.update({'mail_notify_force_send' : True})
+        self._context.update({'mail_notify_force_send': True})
         print(type(self._context))
         print(self._context)
-        
 
     def cancel_property_context(self):
         print(self._context)
@@ -118,7 +150,7 @@ class EstateProperty(models.Model):
     def name_search(self, name='', args=None, operator='=', limit=100):
         domain = args
         if self._context.get('get_properties'):
-            domain+=[('salesperson_id', '=', self._context.get('uid'))]
+            domain += [('salesperson_id', '=', self._context.get('uid'))]
         return super(EstateProperty, self).search(domain, limit=limit).name_get()
 
     @api.depends('checkfield')
@@ -144,6 +176,7 @@ class EstateProperty(models.Model):
 
     def some(self):
         for rec in self:
+
             rec.c = str(rec.a+rec.b)
 
     # total_properties_owned = fields.Char("Total Properties Owned")
@@ -199,10 +232,11 @@ class EstateProperty(models.Model):
         ids = []
         for id in self:
             ids.append(id.id)
-        print(ids)
-        print(self.browse([107,115]), 'sadghiug')
-    
+        print(ids, 'qwrtttyy')
+        print(self.browse([107, 115]), 'sadghiug')
+
         print(values, 'Write Values()')
+
         response = super(EstateProperty, self).write(values)
 
         # rec = self.env['progress.check'].with_context(test="Has TV").create({'name': 'Has Nothing'})
@@ -250,11 +284,120 @@ class NewSaleFields(models.Model):
     new_field = fields.One2many('estate.property', 'sale')
 
 
+class Controller(http.Controller):
+    @http.route('/web/content/<model>/<int:id>/<field>/<filename>', type='http', auth='user')
+    def download_report(self, model, id, field, filename, **kw):
+        record = request.env[model].browse(id)
+        filedata = record[field]  # Retrieve the file from the field
+        
+        return request.make_response(
+            filedata,
+            headers=[
+                ('Content-Type', 'application/octet-stream'),
+                ('Content-Disposition', http.content_disposition(filename)),
+            ]
+        )
+
 class PropertyCancel(models.TransientModel):
+    
     _name = "estate.property.cancel"
+    # _inherit = "estate.property.cancel"
     _description = "A Cancel Wizard Model"
 
     property_id = fields.Many2one("estate.property", string="Browse Property")
+    from_date = fields.Date()
+    to_date = fields.Date()
+    report = fields.Binary()
+
+    def gen_sql(self):
+        if self.property_id:
+            query = f"""SELECT e.* FROM estate_property e 
+            INNER JOIN estate_property_offer o
+            ON e.id=o.property_id
+            INNER JOIN estate_property_type t
+            ON e.property_type_id = t.id
+            WHERE e.id='{self.property_id.id}'"""
+
+            self.env.cr.execute(query)
+            print(self.env.cr.fetchall())
+
+    def generate_report(self):
+        properties = self.env['estate.property'].search([('date_availabilty', '>', self.from_date), ('date_availabilty', '<', self.to_date)])
+        
+        output = io.BytesIO()  # Create an in-memory binary stream
+        workbook = xlsxwriter.Workbook(output, {'in_memory': True})
+        worksheet = workbook.add_worksheet()
+
+        row = 0
+        col = 0
+
+        for property in properties:
+            if row == 0:
+                worksheet.write(row, col, "Name")
+                worksheet.write(row, col+1, "Expected Price")
+                worksheet.write(row, col+2, "Date Availability")
+            row += 1
+            worksheet.write(row, col, property.name)
+            worksheet.write(row, col+1, property.expected_price)
+            worksheet.write(row, col+2, property.date_availabilty.strftime('%x'))
+
+        workbook.close()
+        output.seek(0)
+        return output.read()
+    
+    def print_report(self):
+        report_data = self.generate_report()
+        self.write({'report': base64.b64encode(report_data)})
+        return {
+            'type': 'ir.actions.act_url',
+            'url': '/web/content/?model={}&id={}&field=report&filename=Excel_Report.xlsx'.format(
+                self._name, self.id),
+            'target': 'self',
+        }
+
+    # def print_report(self):
+    #     for rec in self:
+    #         properties = self.env['estate.property'].search([('date_availabilty', '>', (rec.from_date)), ('date_availabilty', '<', (rec.to_date))])
+    #         print(properties)
+
+    #     output = io.BytesIO()  # Create an in-memory binary stream
+    #     workbook = xlsxwriter.Workbook(output, {'in_memory': True})
+    #     worksheet = workbook.add_worksheet()
+        
+    #     row = 0
+    #     col = 0
+        
+    #     for property in properties:
+    #         if row == 0:
+    #             worksheet.write(row, col, "Name")
+    #             worksheet.write(row, col+1, "Expected Price")
+    #             worksheet.write(row, col+2, "Date Availbility")
+    #         row +=1
+    #         worksheet.write(row, col, property.name)
+    #         worksheet.write(row, col+1, property.expected_price)
+    #         print((property.date_availabilty).strftime('%x'))
+    #         worksheet.write(row, col+2, (property.date_availabilty).strftime('%x'))
+
+    #     workbook.close()
+    #     output.seek(0)
+
+    #     # Return the generated file as a download response
+    #     self.env.cr.commit()  # Commit the transaction to ensure data consistency
+    #     return {
+    #         'type': 'ir.actions.act_url',
+    #         'url': '/web/content/?model={}&id={}&filename=Excel_Report.xlsx'.format(
+    #             self.env['estate.property']._name, rec.id),
+    #         'target': 'self',
+    #     }
+
+
+    def create_property(self):
+        pass
+        query = """INSERT INTO estate_property(name, expected_price, active, salesperson_id) VALUES('qwety Property', 35101, True, 2)"""
+        # query = "DELETE FROM estate_property WHERE name='Updated'"
+        self.env.cr.execute(query)
+        print(self.property_id)
+        # b = self.env.cr.fetchall()
 
     def delete_property(self):
         for rec in self:
@@ -324,7 +467,8 @@ class PropertiesContext(models.Model):
 class ResConfigSettings(models.TransientModel):
     _inherit = ['res.config.settings']
 
-    manager_name = fields.Many2one('res.partner',string='Manager Name', config_parameter='estate.manager_name')
+    manager_name = fields.Many2one(
+        'res.partner', string='Manager Name', config_parameter='estate.manager_name')
     abcd = fields.Boolean(string="Check")
     defg = fields.Boolean(string="Check")
     qwer = fields.Boolean(string="Check")
@@ -337,7 +481,7 @@ class ResConfigSettings(models.TransientModel):
     #     print('abcd')
     #     res = super(ResConfigSettings, self).write(vals)
     #     return res
-    
+
     @api.model
     def get_values(self):
         res = super(ResConfigSettings, self).get_values()
@@ -347,7 +491,7 @@ class ResConfigSettings(models.TransientModel):
         #     manager_name = self.env.ref('estate.model_estate_property').manager_name,
         # )
         return res
-    
+
 
 # class PriceListWizard(models.TransientModel):
 #     _name="price.list.wizard"
