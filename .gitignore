@@ -1,6 +1,7 @@
 #Odoo
 __pycache__
 report_xlsx
+excel_report_designer
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
