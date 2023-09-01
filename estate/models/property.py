@@ -157,23 +157,38 @@ class EstateProperty(models.Model):
     def _get_ratings(self):
 
         for rec in self:
+            
             total = self.env['progress.check'].search_count([])
             checked = len(rec.checkfield)
-            rec.check_box_value = (checked/total)*100
+            if total:
+                rec.check_box_value = (checked/total)*100
 
-            if rec.check_box_value == 0:
-                rec.ratings = '0'
-            elif rec.check_box_value <= 20:
-                rec.ratings = '1'
-            elif rec.check_box_value > 20 and rec.check_box_value <= 40:
-                rec.ratings = '2'
-            elif rec.check_box_value > 40 and rec.check_box_value <= 60:
-                rec.ratings = '3'
-            elif rec.check_box_value > 60 and rec.check_box_value <= 80:
-                rec.ratings = '4'
+                if rec.check_box_value == 0:
+                    rec.ratings = '0'
+                elif rec.check_box_value <= 20:
+                    rec.ratings = '1'
+                elif rec.check_box_value > 20 and rec.check_box_value <= 40:
+                    rec.ratings = '2'
+                elif rec.check_box_value > 40 and rec.check_box_value <= 60:
+                    rec.ratings = '3'
+                elif rec.check_box_value > 60 and rec.check_box_value <= 80:
+                    rec.ratings = '4'
+                else:
+                    rec.ratings = '5'
             else:
-                rec.ratings = '5'
+                rec.ratings = '0'
 
+########################################
+    def owl_test(self):
+         return {
+                    'type': 'ir.actions.client',
+                    'tag': 'estate.dashboard',
+                    'params' : {
+                        'name' : self
+                    }
+                }
+#########################################  
+    
     def some(self):
         for rec in self:
 

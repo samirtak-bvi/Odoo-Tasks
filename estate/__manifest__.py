@@ -3,7 +3,7 @@
     "version": "1.1.2",  # Version
     "application": True,  # This line says the module is an App, and not a module
     # dependencies
-    "depends": ["base", "sale", "mail", "excel_report_designer"],
+    "depends": ["base", "sale", "mail"],
     "summary": "A basic Property Estate Module",
     "author": "Samir Tak",
     "support": "BVI",
@@ -21,8 +21,13 @@
         'data/estate_mail_template.xml',
         'data/cron.xml',
     ],
-    'assets': {'web.assets_backend': ['excel_report_designer/static/src/js/action_manager.js',]},
+    'assets': {
+        'web.assets_backend': [
+            'estate/static/src/components/**/*',
+        ],
 
+    },
+        
     "installable": True,
     "license": "LGPL-3",
 }

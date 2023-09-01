@@ -35,6 +35,7 @@
     <record id="quick_create_property_form" model="ir.ui.view">
         <field name="name">estate.property.form.quick_create</field>
         <field name="model">estate.property</field>
+        <field name="priority">1000</field>
         <field name="arch" type="xml">
             <form>
                 <group>
@@ -130,6 +131,7 @@
         <field name="arch" type="xml">
             <form string="Property Information">
                 <button name="print_xlsx" type="object" string="Excel Report" class="oe_stat_button btn btn-primary" />
+                <button name="owl_test" string="Click Here!" type="object" />
                 <sheet>
                     <div class="oe_button_box">
                         <button name="action_show_potential_duplicates" type="object" class="oe_stat_button" icon="fa-star" attrs="{'invisible': [('duplicate_buyer_count', '&lt;', 1)]}">

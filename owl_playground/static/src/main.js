@@ -2,7 +2,7 @@
 
 import { browser } from "@web/core/browser/browser";
 import { mount } from "@odoo/owl";
-import { Playground, Counter } from "./playground";
+import { Playground } from "./playground";
 
 // The following code ensures that owl mount the component when ready.
 // `templates` contains templates contained in the bundles.
@@ -12,7 +12,6 @@ import { Playground, Counter } from "./playground";
 import { templates } from "@web/core/assets";
 owl.whenReady( () => {
     mount(Playground, document.body, { templates, dev: true });
-    mount(Counter, document.body, { templates, dev: true });
 });
 
 

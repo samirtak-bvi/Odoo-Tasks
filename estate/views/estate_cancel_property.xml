@@ -1,10 +1,4 @@
 <odoo>
-    <record id="print_xlsx_report" model="report.excel">
-        <field name="name">Get Report</field>
-        <field name="model_id" ref="model_estate_property" />
-        <field name="state">code</field>
-        <field name="fields_ids" eval="[(6, 0, [ref('estate.estate_property_form')])]" />
-    </record>
     <record id="estate_property_cancel_form" model="ir.ui.view">
         <field name="name">estate.property.cancel.name</field>
         <field name="model">estate.property.cancel</field>
@@ -16,7 +10,6 @@
                     <field name="to_date" />
                 </group>
                 <footer>
-                    <button name="%(estate.print_xlsx_report)d" string="Generate Excel" type="action" />
                     <button name="print_report" string="Create Record" type="object" class="btn btn-secondary" />
                     <button name="delete_property" confirm="Are you sure, you want to delete the record?" type="object" string="Delete Record" class="btn btn-secondary"/>
                     <button name="gen_sql" string="Test" type="object"/>
