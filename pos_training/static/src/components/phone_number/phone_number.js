@@ -1,10 +1,12 @@
-odoo.define('pos_training.phone_number', function(require) {
+odoo.define('pos_training.phone_number', function (require) {
     'use strict';
     const PosComponent = require('point_of_sale.PosComponent');
     const ProductScreen = require('point_of_sale.ProductScreen');
     const Registries = require('point_of_sale.Registries');
+    var { Gui } = require('point_of_sale.Gui');
+    const { _lt } = require('@web/core/l10n/translation');
 
-    const PhoneNumber = (ProductScreen) => class PhoneNumber extends ProductScreen{
+    const PhoneNumber = (ProductScreen) => class PhoneNumber extends ProductScreen {
         setup() {
             super.setup();
         }
@@ -14,20 +16,28 @@ odoo.define('pos_training.phone_number', function(require) {
 
             // console.log(order)
             const { confirmed, payload: inputPhone } = await this.showPopup('PhoneNumberPopup',
-            {
-                initialNumber: selectedOrder.get_phone_number()
-            });
-            
-            if (confirmed){
+                {
+                    initialNumber: selectedOrder.get_phone_number()
+                });
+
+            if (confirmed) {
                 selectedOrder.set_phone_number(inputPhone)
             }
         }
         async _onClickPay() {
-
-            super._onClickPay()
+            // console.log(this.env.pos.get_order().partner==null)
+            if (this.env.pos.get_order().partner==null) {
+                Gui.showPopup('ErrorPopup', {
+                    title: _lt('Customer'),
+                    body: _lt(`Please select a customer before proceeding!`)
+                });
+            }
+            else {
+                super._onClickPay()
+            }
         }
     }
-    
+
     PhoneNumber.template = 'CustomerPhoneNumber';
     Registries.Component.extend(ProductScreen, PhoneNumber);
 

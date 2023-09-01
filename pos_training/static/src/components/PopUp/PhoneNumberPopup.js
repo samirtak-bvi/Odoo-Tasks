@@ -104,6 +104,7 @@ odoo.define('pos_training.PhoneNumberPopup', function (require) {
             if (this.get_phone_number()) {
                 result.phoneNumber = this.get_phone_number();
             }
+            result.mobile_no = this.partner.mobile_no
             return result;
         }
     }
