@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="pos_training.OrderReceipt" t-inherit="point_of_sale.OrderReceipt" t-inherit-mode="extension" owl="1">
+        <xpath expr="//div[hasclass('pos-receipt')]//div[hasclass('after-footer')]" position="inside">
+            <div t-if="receipt.phoneNumber" class="pos-receipt-order-data">Note: <t t-esc="receipt.phoneNumber" /></div>
+        </xpath>
+    </t>
+
+</templates>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data>
+    <record id="pos_training_view_inherit" model="ir.ui.view">
+      <field name="name">pos.training.model.inherit.form</field>
+      <field name="model">pos.order</field>
+      <field name="inherit_id" ref="point_of_sale.view_pos_pos_form" />
+      <field name="arch" type="xml">
+        <data>
+          <xpath expr="//field[@name='fiscal_position_id']" position="after">
+            <field name="phoneNumber" />
+          </xpath>
+        </data>
+      </field>
+    </record>
+
+    <record id="pos_training_list_inherit" model="ir.ui.view">
+      <field name="name">pos.training.model.inherit.tree</field>
+      <field name="model">pos.order</field>
+      <field name="inherit_id" ref="point_of_sale.view_pos_order_tree" />
+      <field name="arch" type="xml">
+        <data>
+          <xpath expr="//field[@name='pos_reference']" position="after">
+            <field name="phoneNumber" />
+          </xpath>
+        </data>
+      </field>
+    </record>
+  </data>
+</odoo>

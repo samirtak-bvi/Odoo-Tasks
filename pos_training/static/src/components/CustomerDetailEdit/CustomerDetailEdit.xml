@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="pos_training.CustomerMobile" t-inherit="point_of_sale.PartnerDetailsEdit" t-inherit-mode="extension" owl="1">
+        <xpath expr="//div[hasclass('partner-details-right')]" position="inside">
+            <div class="partner-detail">
+                <span class="label">Mobile Number</span>
+                <input class="detail" id="mobile_no" t-model="changes.mobile_no" t-on-change="captureChange" />
+            </div>
+        </xpath>
+    </t>
+
+    <t t-name="pos_training.CustomerList" t-inherit="point_of_sale.PartnerListScreen" t-inherit-mode="extension" owl="1">
+        <xpath expr="//table[hasclass('partner-list')]//tr//th[2]" position="after">
+            <th>Mobile Number</th>
+        </xpath>
+    </t>
+
+    <t t-name="pos_training.CustomerLine" t-inherit="point_of_sale.PartnerLine" t-inherit-mode="extension" owl="1">
+        <xpath expr="//tr//td[2]" position="after">
+            <t t-if="props.partner.mobile_no" t-out="props.partner.mobile_no"/>
+            <t t-else="">N.A.</t>
+
+        </xpath>
+    </t>
+</templates>

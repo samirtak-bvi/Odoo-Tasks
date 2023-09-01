@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+<!-- 
+    <t t-name="pos_training.PhoneNumberPopup" owl="1">
+        <div class="popup popup-textarea">
+            <Draggable>
+
+            <header class="title drag-handle">
+                Add a Note
+            </header>
+            <div class="popup-textarea-wrap">
+                <textarea t-ref="phoneNumber" name="phoneNumber" t-model="state.phoneNumberInput"></textarea>
+            </div>
+            <footer class="footer cash-move">
+                <div class="button confirm disable highlight dynamic-size" t-on-click="confirm">
+                    <t t-esc="props.confirmText" />
+                </div>
+
+                <div class="button cancel" t-on-click="cancel">
+                    <t t-esc="props.cancelText" />
+                </div>
+            </footer>
+        </Draggable>
+
+        </div>
+    </t> -->
+
+    <t t-name="pos_training.PhoneNumberPopup" owl="1">
+        <Draggable>
+            <div class="popup popup-textarea">
+                <header class="title drag-handle">
+                    Order Note
+                </header>
+                <div class="popup-textarea-wrap">
+                    <textarea t-model="state.phoneNumberInput" t-ref="phoneNumber"></textarea>
+                </div>
+                <footer class="footer">
+                    <div class="button confirm highlight" t-on-click="confirm">
+                        <t t-esc="props.confirmText" />
+                    </div>
+                    <div class="button cancel" t-on-click="cancel">
+                        <t t-esc="props.cancelText" />
+                    </div>
+                </footer>
+            </div>
+        </Draggable>
+    </t>
+</templates>
+                            
