@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <menuitem
+        id="pos_location_menu"
+        name="POS Locations"
+        action="pos_training.pos_locations_action"
+    />
+
+</odoo>

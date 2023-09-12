@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- <record id="pos_available_location_tree" model="ir.ui.view">
+        <field name="name">pos.available.location.tree</field>
+        <field name="model">school.information</field>
+    </record> -->
+
+    <record id="pos_locations_action" model="ir.actions.act_window">
+        <field name="name">Available Locations</field>
+        <field name="res_model">pos.available.location</field>
+    </record>
+</odoo>
