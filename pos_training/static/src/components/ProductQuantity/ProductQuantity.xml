@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+    <t t-name="pos_training.ProductQuantity" t-inherit="point_of_sale.ProductItem"
+        t-inherit-mode="extension" owl="1">
+        <xpath expr="//div[hasclass('product-img')]" position="before">
+            <span class="qty"
+                t-att-class="{'available': props.product.qty_available > 0, 'unavailable':props.product.qty_available &lt;= 0}">
+                <t t-esc="props.product.qty_available" />
+            </span>
+        </xpath>
+    </t>
+    <t t-name="pos_training.ProductQuantity" t-inherit="point_of_sale.ProductItem"
+        t-inherit-mode="extension" owl="1">
+        <xpath expr="//article[hasclass('product')]" position="before">
+           <!-- <div></div> -->
+        </xpath>
+    </t>
+    <!-- <t t-name="pos_training.Product" t-inherit="point_of_sale.ProductsWidget"
+        t-inherit-mode="extension" owl="1">
+        <xpath expr="//div[hasclass('products-widget')]//div[hasclass('product-list-container')]//div[hasclass('product-list')]" position="before">
+            <span class="qty">asdas
+                <t t-esc="props.product.qty_available" />
+            </span>
+        </xpath>
+    </t> -->
+</templates>
