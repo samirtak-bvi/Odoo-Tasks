@@ -9,6 +9,7 @@
         <data>
           <xpath expr="//field[@name='fiscal_position_id']" position="after">
             <field name="phoneNumber" />
+            <field name="location" />
           </xpath>
         </data>
       </field>
@@ -22,6 +23,7 @@
         <data>
           <xpath expr="//field[@name='pos_reference']" position="after">
             <field name="phoneNumber" />
+            <field name="location" />
           </xpath>
         </data>
       </field>
