@@ -18,7 +18,10 @@
         'security/ir.model.access.csv',
         'views/views.xml',
         'views/templates.xml',
-        'views/CustomerDetail.xml'
+        'views/CustomerDetail.xml',
+        'views/POSLocation/POSLocation.xml',
+        'views/POSLocation/POSLocationMenu.xml',
+        'views/POSLocation/POSLocationSettings.xml'
     ],
     'demo': [
         'demo/demo.xml',
