@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="pos_training.CustomerLine" t-inherit="point_of_sale.PartnerLine" t-inherit-mode="extension" owl="1">
+        <xpath expr="//tr//td[2]" position="after">
+            <t t-if="props.partner.mobile_no" t-out="props.partner.mobile_no"/>
+            <t t-else="">N.A.</t>
+        </xpath>
+    </t>    
+</templates>
