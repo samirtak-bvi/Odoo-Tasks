@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<t t-name="pos_training.LocationButton" owl="1">
+    <div class="control-button">
+        <!-- <t t-if="currentOrder.location != null" t-set="location" t-value="currentOrder.location" /> -->
+        <i class="fa fa-map-marker" />
+        <span> </span>
+        <span><t t-if="currentOrder.location" t-out="currentOrder.location.name"></t><t t-else="">Location</t></span>
+        <br></br>
+        
+    </div>
+</t>

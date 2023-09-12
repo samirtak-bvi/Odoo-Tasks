@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<t t-name="OrderlineDelete" t-inherit="point_of_sale.Orderline" t-inherit-mode="extension"
+    owl="1">
+    <xpath expr="//li[hasclass('orderline')]//span[hasclass('price')]" position="inside">
+        <i t-on-click="() => this.deleteOrderline(props.line)" style="color:red" class="fa fa-trash fa-lg"></i>
+    </xpath>
+</t>
