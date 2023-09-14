@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="owl_playground.sales_detail" name="Sale Details">
+        <t t-call="website.layout">
+            <div class="oe_structure">
+                <div class="container">
+                    <br />
+                    <center>
+                        <h3>Sale Order Details</h3>
+                    </center>
+                    <table class="table-striped table">
+                        <thead style="font-size: 25px">
+                            <tr>
+                                <h6>
+                                    <b>
+                                        <th>Sale Order</th>
+                                        <th>Customer</th>
+                                        <th>Date</th>
+                                        <th>
+                                            <b>State</b>
+                                        </th>
+                                    </b>
+                                </h6>
+                            </tr>
+                        </thead>
+
+                        <t t-foreach="details" t-as="order">
+                            <tr>
+                                <td>
+                                    <span t-esc="order.name" />
+                                </td>
+                                <td>
+                                    <span t-esc="order.partner_id.name" />
+                                </td>
+                                <td>
+                                    <span t-esc="order.date_order" />
+                                </td>
+                                <td>
+                                    <span t-esc="order.state" />
+                                </td>
+                            </tr>
+                        </t>
+                    </table>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

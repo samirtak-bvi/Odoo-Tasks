@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="s_customBanner" name="Custom Banner">
+        <section class="s_cbanner" data-scroll-background-ratio="1">
+            <span class="banner_img" style="z-index=100 ;background-image=url(https://cdn.pixabay.com/photo/2015/12/01/20/28/road-1072823_1280.jpg)"></span>
+            <div class="banner">
+                <h1>
+                    <font style="font-size: 62px;">Banner. Demo.</font>
+                </h1>
+                <p class="banner_data">This is a simple hero unit, a simple jumbotron-style component for
+                    calling extra attention to featured content or information.</p>
+                <!-- <a t-att-href="cta_btn_href" class="btn btn-primary mb-2">
+                    <t t-esc="cta_btn_text">Contact Us</t>
+                </a> -->
+            </div>
+        </section>
+    </template>
+
+</odoo>

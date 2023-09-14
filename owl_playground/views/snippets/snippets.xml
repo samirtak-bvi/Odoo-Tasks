@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="custom" inherit_id="website.snippets" name="Custom">
+        <xpath expr="//div[@id='snippet_structure']//div[hasclass('o_panel_body')]"
+            position="inside">
+            <t t-snippet="owl_playground.s_customBanner" string="Custom Banner" t-thumbnail="owl_playground/static/src/img/s_banner.png"/>
+            <t t-snippet="owl_playground.s_customCarousel" string="Custom Carousel" t-thumbnail="owl_playground/static/src/img/s_carousel.png"/>
+        </xpath>
+    </template>
+</odoo>
