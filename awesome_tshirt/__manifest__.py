@@ -53,5 +53,7 @@
             ("include", 'web.assets_frontend'), 
             'awesome_tshirt/static/tests/**/*',
         ],
-    }
+    },
+    "license": "LGPL-3",
+
 }
