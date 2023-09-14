@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+    <template id="external_snippets" inherit_id="website.snippets" priority="8">
+        <xpath expr="//div[@id='snippet_effect']/div[hasclass('o_panel_body')]" position="inside">
+            <t t-snippet="dynamic_snippet.s_EmployeeDetail" string="Employees Details">
+            </t>
+        </xpath>
+    </template>
+</odoo>

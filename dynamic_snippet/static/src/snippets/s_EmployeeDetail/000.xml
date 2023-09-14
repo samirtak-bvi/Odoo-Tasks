@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+        <t t-name="dynamic_snippet.s_carousel_EmployeeDetail">
+                Hellooooo 
+                <div id="emplyee_data">
+                    
+                </div>
+                <t t-out="data"/>
+                <div t-foreach="data" t-as="employee">
+                    sasdiasdsa
+                </div>
+        </t>
+</templates>
