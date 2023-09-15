@@ -22,4 +22,3 @@ class Employee(models.Model):
     def _compute_pm(self):
         for rec in self:
             rec.salary_pm = rec.salary_annual / 12
-    

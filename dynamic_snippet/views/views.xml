@@ -24,6 +24,7 @@
             <field name="occupation" />
             <field name="salary_pm" />
             <field name="salary_annual" />
+            <field name="image" widget="image" style="height:100px;width:100px"/>
           </group>
         </sheet>
         </form>

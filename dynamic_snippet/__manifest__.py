@@ -30,10 +30,10 @@
         'views/snippets/s_EmployeeDetail.xml'
     ],
 
-    'assets': {
-    'website.assets_wysiwyg': [
-            ('include', 'web._assets_helpers'),
-            'dynamic_snippet/static/src/snippets/s_EmployeeDetail/options.js'
-    ]
-    }
+    # 'assets': {
+    # 'website.assets_wysiwyg': [
+    #         ('include', 'web._assets_helpers'),
+    #         'dynamic_snippet/static/src/snippets/s_EmployeeDetail/options.js'
+    # ]
+    # }
 }

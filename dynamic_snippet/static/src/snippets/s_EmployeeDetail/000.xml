@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates xml:space="preserve">
+        
         <t t-name="dynamic_snippet.s_carousel_EmployeeDetail">
-                Hellooooo 
-                <div id="emplyee_data">
-                    
-                </div>
-                <t t-out="data"/>
-                <div t-foreach="data" t-as="employee">
-                    sasdiasdsa
-                </div>
+                <t t-foreach="data" t-as="employee">
+                        <ol>
+                                <li>
+                                        <t t-out="employee.name"></t>
+                                        <!-- <t t-out="employee.image.decode('utf-8')"></t> -->
+                                        <img src="{{ 'data:image/png;base64,%s' % employee.image.decode('utf-8') }}" style="height:100px; width:100px;"></img>
+                                </li>
+                        </ol>
+                        <!-- <t t-out="employee.image"></t> -->
+                </t>
         </t>
 </templates>
