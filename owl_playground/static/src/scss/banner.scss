@@ -1,14 +1,14 @@
 .s_cbanner {
     background-color: #d3525a;
     display: flex;
-    align-content: center;
-    background-image: url(https://media.istockphoto.com/id/1337232523/photo/high-angle-view-of-a-lake-and-forest.jpg?s=1024x1024&w=is&k=20&c=EPh5_6vL4mywUc3AfLRKJCChgAs41oI9nMveOInep_0=) !important;
-    filter: brightness(30%), blur(50%);
 }
   
   .banner {
     display: flex;
     flex-direction: column;
+    color: white;
   }
   
-  
+  .black_bg{
+    color: white;
+  }

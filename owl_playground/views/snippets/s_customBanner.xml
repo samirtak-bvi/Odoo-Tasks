@@ -3,13 +3,14 @@
 
     <template id="s_customBanner" name="Custom Banner">
         <section class="s_cbanner" data-scroll-background-ratio="1">
-            <span class="banner_img" style="z-index=100 ;background-image=url(https://cdn.pixabay.com/photo/2015/12/01/20/28/road-1072823_1280.jpg)"></span>
-            <div class="banner">
+            <span class=".oe_img_bg banner_img" style="z-index=100 ;background-image=url(https://cdn.pixabay.com/photo/2015/12/01/20/28/road-1072823_1280.jpg)"></span>
+            <div class="container bg-primary pt-5 pb-5">
                 <h1>
-                    <font style="font-size: 62px;">Banner. Demo.</font>
+                    <font style="font-size: 62px;">Details at footstep</font>
                 </h1>
-                <p class="banner_data">This is a simple hero unit, a simple jumbotron-style component for
-                    calling extra attention to featured content or information.</p>
+                <p class="banner_data">Get Your Sales Detail!</p>
+
+                    <a href="/sales_detail" class="btn btn-secondary mb-2">Sales Detail</a>
                 <!-- <a t-att-href="cta_btn_href" class="btn btn-primary mb-2">
                     <t t-esc="cta_btn_text">Contact Us</t>
                 </a> -->
