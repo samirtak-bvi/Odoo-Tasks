@@ -1,16 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates xml:space="preserve">
         
-        <t t-name="dynamic_snippet.s_carousel_EmployeeDetail">
-                <t t-foreach="data" t-as="employee">
-                        <ol>
-                                <li>
-                                        <t t-out="employee.name"></t>
-                                        <!-- <t t-out="employee.image.decode('utf-8')"></t> -->
-                                        <img src="{{ 'data:image/png;base64,%s' % employee.image.decode('utf-8') }}" style="height:100px; width:100px;"></img>
-                                </li>
-                        </ol>
-                        <!-- <t t-out="employee.image"></t> -->
-                </t>
+        
+<t t-name="dynamic_snippet.s_carousel_EmployeeDetail">
+        <t t-foreach="data" t-as="employee">
+                <t t-set="id" t-value="employee.id"></t>
+                <div class="s_text_image o_mail_snippet_general pt32 pb32">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-lg-6 o_cc px-0">
+                                <img class="img w-100" t-attf-src="data:image/png;base64,{{employee.image}}"/>
+                        </div>
+                        <div class="col-lg-6 o_cc pt16 pb16">
+                            <h3><t t-out="employee.name" /></h3>
+                            <p style="text-align: justify;"><t t-out="employee.occupation" /></p>
+                            <div style="text-align: left;">
+                                <a href="#" class="btn btn-primary">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
         </t>
+</t>
 </templates>

@@ -11,7 +11,6 @@ publicWidget.registry.DynamicEmployeeCarousel = publicWidget.Widget.extend({
             route: "/employee/detail",
             params: {}
         }).then((data) => {
-            console.log(data[0].image.decode('utf-8'))
             this.$target.replaceWith(Qweb.render("dynamic_snippet.s_carousel_EmployeeDetail", {data: data}))
             console.log('Done')
         });
