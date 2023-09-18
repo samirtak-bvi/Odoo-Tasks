@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="custom_website.custom_webpage" name="Sale Details">
+        <t t-call="website.layout">
+            <!-- ===========================Slider Code=========================== -->
+            <section class="s_carousel_wrapper" data-vxml="001">
+                <t t-set="uniq" t-value="datetime.datetime.now().microsecond" />
+                <div t-attf-id="myCarousel{{uniq}}"
+                    class="s_carousel s_carousel_default carousel slide"
+                    data-bs-interval="10000">
+                    <!-- Indicators -->
+                    <ol class="carousel-indicators">
+                        <li t-attf-data-bs-target="#myCarousel{{uniq}}" data-bs-slide-to="0"
+                            class="active" />
+                        <li t-attf-data-bs-target="#myCarousel{{uniq}}" data-bs-slide-to="1" />
+                    </ol>
+                    <!-- Content -->
+                    <div class="carousel-inner">
+                        <!-- #01 -->
+                        <div class="carousel-item active oe_img_bg o_bg_img_center pt152 pb152"
+                            style="background-image: url('/owl_playground/static/src/img/img-1.jpg');"
+                            data-name="Slide">
+                            <div class="container oe_unremovable">
+                                <div class="row content black_bg">
+                                    <div class="carousel-content col-lg-6">
+                                        <h2>
+                                            <font style="font-size: 62px;">Create Form</font>
+                                        </h2>
+                                        <p id="Data" class="lead">Create Forms Easily with
+                                            Snippets!.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- #02 -->
+                        <div class="carousel-item oe_img_bg o_bg_img_center pt96 pb96"
+                            style="background-image: url('/owl_playground/static/src/img/img-2.jpg');"
+                            data-name="Slide">
+                            <div class="container oe_unremovable">
+                                <div class="row content">
+                                    <div
+                                        class="carousel-content bg-black text-center text-light pt48 pb40">
+                                        <h2 style="font-size: 62px;">Sliders!</h2>
+                                        <div class="s_hr pt8 pb24" data-snippet="s_hr"
+                                            data-name="Separator">
+                                            <hr class="w-25 mx-auto"
+                                                style="border-top-width: 1px; border-top-style: solid;" />
+                                        </div>
+                                        <p class="lead">Sliders<br /> Just drag and drop the snippet
+                                            in your website.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Controls -->
+                    <a class="carousel-control-prev o_not_editable" contenteditable="false"
+                        t-attf-href="#myCarousel{{uniq}}" data-bs-slide="prev" role="img"
+                        aria-label="Previous" title="Previous">
+                        <span class="carousel-control-prev-icon" />
+                        <span class="visually-hidden">Previous</span>
+                    </a>
+                    <a class="carousel-control-next o_not_editable" contenteditable="false"
+                        t-attf-href="#myCarousel{{uniq}}" data-bs-slide="next" role="img"
+                        aria-label="Next" title="Next">
+                        <span class="carousel-control-next-icon" />
+                        <span class="visually-hidden">Next</span>
+                    </a>
+                </div>
+            </section>
+            <!-- <button type="button" class="btn btn-primary" id="modal-trigger">
+                Open modal
+                </button> -->
+                <!-- The Modal -->
+                <div class="modal" id="myModal">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                                <h4 class="modal-title">Modal Heading</h4>
+                                <button type="button" class="btn-close close" data-bs-dismiss="modal"></button>
+                            </div>
+                            <!-- Modal body -->
+                            <div class="modal-body">
+                                Modal body..
+                            </div>
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger close" id="button" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <!-- ===========================Form Code=========================== -->
+            <div class="container text-light bg-secondary mt-5 mb-5">
+                <span class="text-center">
+                    <h1 class="pt-3">Connect with us!</h1>
+                </span>
+                <form id="custom_form" class="pt20 pb40 px-5" method="POST">
+                    <div class="form-group pt-3">
+                        <label>Name</label>
+                        <input type="text" class="form-control" id="name" placeholder="Your Name" required="true"/>
+                    </div>
+                    <div class="form-group pt-3">
+                        <label>Your Job Profile</label>
+                        <select class="form-control" id="selector" required="true">
+                            <option>Software Engineer</option>
+                            <option>Buisness Analyst</option>
+                        </select>
+                    </div>
+                    <div class="form-group pt-3">
+                        <label>How Can We Help You?</label>
+                        <textarea class="form-control" id="help" rows="3" required="true"></textarea>
+                    </div>
+                    <button type="submit" id="submit" class="btn btn-primary btn-lg mt-3 px-5">
+                        Submit</button>
+                </form>
+            </div>
+        </t>
+    </template>
+
+    <!-- <record id="custom_website.s_Form_000_js" model="ir.asset">
+        <field name="name">Custom Form JS</field>
+        <field name="bundle">web.assets_frontend</field>
+        <field name="path">custom_website/static/src/custom_webpage/custom_webpage.js</field>
+    </record> -->
+</odoo>
